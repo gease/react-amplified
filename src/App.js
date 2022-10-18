@@ -10,13 +10,21 @@ function App({ signOut, user }) {
 
   let [file, setFile] = useState(null);
   let [level, setLevel] = useState('public');
+  let [publicFiles, setPublicFiles] = useState([]);
+  let [protectedFiles, setProtectedFiles] = useState([]);
+  let [privateFiles, setPrivateFiles] = useState([]);
 
+  const filesListFetch = async () => {
+      setPublicFiles(await Storage.list('', {level: 'public'}));
+      setProtectedFiles(await Storage.list('', {level: 'protected'}));
+      setPrivateFiles(await Storage.list('', {level: 'private'}));
+  }
+
+  useEffect(() => {filesListFetch()}, []);
   const onFormSubmit = async (event) => {
       event.preventDefault();
-      console.log(file);
       const result = await Storage.put(file.name, file, {level});
-
-      console.log(result);
+      filesListFetch();
   }
 
   const onRadiosChange = (event) => {
@@ -24,6 +32,8 @@ function App({ signOut, user }) {
           setLevel(event.target.value);
       }
   }
+
+
 
   return (
       <Authenticator loginMechanisms={['username']} signUpAttributes={['name', "birthdate"]}>
@@ -39,6 +49,18 @@ function App({ signOut, user }) {
                       <input type='radio' name='privacyLevel' value='private' id="private" checked={level === 'private'} onChange={(event) => onRadiosChange(event)}/><label htmlFor='private'>Private</label>
                       <button>Submit</button>
                   </form>
+                  <h3>Public files</h3>
+                  <ul>
+                      {publicFiles.map((item) => <li key={item.key}>{item.key}</li>)}
+                  </ul>
+                  <h3>Protected files</h3>
+                  <ul>
+                    {protectedFiles.map((item) => <li key={item.key}>{item.key}</li>)}
+                  </ul>
+                  <h3>Private files</h3>
+                  <ul>
+                      {privateFiles.map((item) => <li key={item.key}>{item.key}</li>)}
+                  </ul>
               </main>
           )}
       </Authenticator>
