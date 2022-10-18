@@ -3,6 +3,8 @@ import { Amplify, Storage } from 'aws-amplify';
 import {Authenticator} from "@aws-amplify/ui-react";
 import '@aws-amplify/ui-react/styles.css';
 
+import FileLink from "./FileLink";
+
 import awsExports from './aws-exports';
 Amplify.configure(awsExports);
 
@@ -51,15 +53,15 @@ function App({ signOut, user }) {
                   </form>
                   <h3>Public files</h3>
                   <ul>
-                      {publicFiles.map((item) => <li key={item.key}>{item.key}</li>)}
+                      {publicFiles.map((item) => <FileLink file={item} level='public' />)}
                   </ul>
                   <h3>Protected files</h3>
                   <ul>
-                    {protectedFiles.map((item) => <li key={item.key}>{item.key}</li>)}
+                    {protectedFiles.map((item) => <FileLink file={item} level='protected'/>)}
                   </ul>
                   <h3>Private files</h3>
                   <ul>
-                      {privateFiles.map((item) => <li key={item.key}>{item.key}</li>)}
+                      {privateFiles.map((item) => <FileLink file={item} level='private'/>)}
                   </ul>
                   <a onClick={filesListFetch}> Refresh list of files</a>
               </main>
