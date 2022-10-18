@@ -3,15 +3,15 @@ import { Amplify, Storage } from 'aws-amplify';
 import {Authenticator} from "@aws-amplify/ui-react";
 import '@aws-amplify/ui-react/styles.css';
 
-import FileLink from "./FileLink";
+import Header from "./Header";
+import FileUpload from "./FileUpload";
 
-import awsExports from './aws-exports';
+import awsExports from '../aws-exports';
+import FileLink from "./FileLink";
 Amplify.configure(awsExports);
 
 function App({ signOut, user }) {
 
-  let [file, setFile] = useState(null);
-  let [level, setLevel] = useState('public');
   let [publicFiles, setPublicFiles] = useState([]);
   let [protectedFiles, setProtectedFiles] = useState([]);
   let [privateFiles, setPrivateFiles] = useState([]);
@@ -23,34 +23,16 @@ function App({ signOut, user }) {
   }
 
   useEffect(() => {filesListFetch()}, []);
-  const onFormSubmit = async (event) => {
-      event.preventDefault();
-      const result = await Storage.put(file.name, file, {level});
-      await filesListFetch();
-  }
-
-  const onRadiosChange = (event) => {
-      if (event.target.checked) {
-          setLevel(event.target.value);
-      }
-  }
-
-
 
   return (
+      <>
+      <Header user={user} />
       <Authenticator loginMechanisms={['username']} signUpAttributes={['name', "birthdate"]}>
           {({ signOut, user }) => (
               <main>
                   <h1>Hello {user.attributes.name}</h1>
                   <button onClick={signOut}>Sign out</button>
-                  <form onSubmit={onFormSubmit}>
-                      <label htmlFor='upload'>Upload a file</label>
-                      <input type='file' name='upload' id="upload" onChange={(event) => setFile(event.target.files[0])}></input>
-                      <input type='radio' name='privacyLevel' value='public' id="public" checked={level === 'public'} onChange={(event) => onRadiosChange(event)}/><label htmlFor='public'>Public</label>
-                      <input type='radio' name='privacyLevel' value='protected' id="protected" checked={level === 'protected'} onChange={(event) => onRadiosChange(event)}/><label htmlFor='protected'>Protected</label>
-                      <input type='radio' name='privacyLevel' value='private' id="private" checked={level === 'private'} onChange={(event) => onRadiosChange(event)}/><label htmlFor='private'>Private</label>
-                      <button>Submit</button>
-                  </form>
+                  <FileUpload fetchCallback={filesListFetch}/>
                   <h3>Public files</h3>
                   <ul>
                       {publicFiles.map((item) => <FileLink file={item} level='public' />)}
@@ -67,6 +49,7 @@ function App({ signOut, user }) {
               </main>
           )}
       </Authenticator>
+      </>
   );
 }
 
