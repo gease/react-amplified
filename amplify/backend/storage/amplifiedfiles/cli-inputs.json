@@ -1,0 +1,14 @@
+{
+  "resourceName": "amplifiedfiles",
+  "policyUUID": "c7d1929c",
+  "bucketName": "reactamplified",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}
