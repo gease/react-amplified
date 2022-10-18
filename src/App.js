@@ -24,7 +24,7 @@ function App({ signOut, user }) {
   const onFormSubmit = async (event) => {
       event.preventDefault();
       const result = await Storage.put(file.name, file, {level});
-      filesListFetch();
+      await filesListFetch();
   }
 
   const onRadiosChange = (event) => {
@@ -61,6 +61,7 @@ function App({ signOut, user }) {
                   <ul>
                       {privateFiles.map((item) => <li key={item.key}>{item.key}</li>)}
                   </ul>
+                  <a onClick={filesListFetch}> Refresh list of files</a>
               </main>
           )}
       </Authenticator>
