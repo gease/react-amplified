@@ -7,7 +7,7 @@ function FileUpload({fetchCallback}) {
     const onFormSubmit = async (event) => {
         event.preventDefault();
         await Storage.put(file.name, file, {level});
-        await fetchCallback();
+        fetchCallback();
     }
 
     const onRadiosChange = (event) => {
