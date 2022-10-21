@@ -4,7 +4,9 @@ import './index.css';
 import App from './Components/App';
 import reportWebVitals from './reportWebVitals';
 import { Amplify } from 'aws-amplify';
+import {Provider} from "react-redux";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
+import store from "./store";
 
 import awsExports from './aws-exports';
 import MyAuthenticator from "./Components/MyAuthenticator";
@@ -13,12 +15,14 @@ Amplify.configure(awsExports);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-      <BrowserRouter>
-          <Routes>
+      <Provider store={store}>
+        <BrowserRouter>
+            <Routes>
               <Route index={true} element={<App/>}/>
               <Route path='/login' element={<MyAuthenticator />} />
           </Routes>
-      </BrowserRouter>
+        </BrowserRouter>
+      </Provider>
   </React.StrictMode>
 );
 

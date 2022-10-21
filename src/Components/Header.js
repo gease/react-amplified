@@ -1,12 +1,27 @@
-import {Auth} from "aws-amplify";
-import {useState} from "react";
+import {Link} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {LogOut} from "./LogOut";
 
 function Header () {
-    let [user, setUser] = useState('');
-    (async () => {const {attributes} = await Auth.currentAuthenticatedUser(); setUser(attributes.name)})();
-    //console.log(user);
-    if (user === '') return <header>You are not logged in</header>
-    else return <header>Welcome {user}</header>
+    const user = useSelector(state => state.user);
+    if (!user) {
+        return (
+            <header>
+                You are not logged in
+                <Link to='/login'>Log in or sign up</Link>
+            </header>
+        );
+    }
+    else {
+        console.log(user);
+
+        return (
+            <header>
+                Welcome {user.name}
+                <LogOut/>
+            </header>
+        );
+    }
 }
 
 export default Header;

@@ -1,5 +1,6 @@
 import {useRef, useState} from "react";
 import {Storage} from "aws-amplify";
+import {RadioGroupField, Radio, Button} from "@aws-amplify/ui-react";
 
 function FileUpload({fetchCallback}) {
     const [file, setFile] = useState(null);
@@ -14,20 +15,16 @@ function FileUpload({fetchCallback}) {
         uploadRef.current.value = null;
     }
 
-    const onRadiosChange = (event) => {
-        if (event.target.checked) {
-            setLevel(event.target.value);
-        }
-    }
-
     return (
         <form onSubmit={onFormSubmit}>
             <label htmlFor='upload'>Upload a file</label>
             <input type='file' name='upload' id="upload" ref={uploadRef} onChange={(event) => setFile(event.target.files[0])}></input>
-            <input type='radio' name='privacyLevel' value='public' id="public" checked={level === 'public'} onChange={(event) => onRadiosChange(event)}/><label htmlFor='public'>Public</label>
-            <input type='radio' name='privacyLevel' value='protected' id="protected" checked={level === 'protected'} onChange={(event) => onRadiosChange(event)}/><label htmlFor='protected'>Protected</label>
-            <input type='radio' name='privacyLevel' value='private' id="private" checked={level === 'private'} onChange={(event) => onRadiosChange(event)}/><label htmlFor='private'>Private</label>
-            <button>Submit</button>
+            <RadioGroupField name='privacyLevel' label='Privacy Level' value={level} onChange={e => setLevel(e.target.value)}>
+                <Radio value='public'>Public</Radio>
+                <Radio value='protected'>Protected</Radio>
+                <Radio value='private'>Private</Radio>
+            </RadioGroupField>
+            <Button type='submit'>Submit</Button>
         </form>
     )
 }
