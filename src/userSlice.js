@@ -16,6 +16,14 @@ export const logOut = createAsyncThunk('user/logOut',
     }
 )
 
+export const getAuthenticated = createAsyncThunk('user/getUser',
+    async () => {
+        const user = await Auth.currentAuthenticatedUser()
+        return user.attributes;
+    }
+)
+
+
 export const userSlice = createSlice({
     name: 'user',
     initialState: null,
@@ -32,6 +40,12 @@ export const userSlice = createSlice({
         });
         builder.addCase(logOut.rejected, (state, action) => {
             console.log(action.error);
+        });
+        builder.addCase(getAuthenticated.fulfilled, (state, action) => {
+            return action.payload;
+        });
+        builder.addCase(getAuthenticated.rejected, (state, action) => {
+            return null;
         });
     }
 });
