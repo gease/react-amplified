@@ -9,6 +9,7 @@ import FileUpload from "./FileUpload";
 import awsExports from '../aws-exports';
 import FileList from "./FileList";
 import {getAuthenticated} from "../userSlice";
+import {Outlet} from "react-router-dom";
 
 Amplify.configure(awsExports);
 
@@ -16,13 +17,10 @@ function App() {
 
     const dispatch = useDispatch();
     const fileUploadCallback = () => {
-        console.log('file uploaded');
-        console.log(fileList);
         fileList.current.forceUpdate();
     }
 
     useEffect(() => {
-        console.log('use effect App');
         dispatch(getAuthenticated());
     }, []);
 
@@ -33,9 +31,7 @@ function App() {
         <>
             <Header user={user}/>
             <main>
-                {user && <h1>Hello {user.name}</h1>}
-                {user && <FileUpload fetchCallback={fileUploadCallback}/>}
-                <FileList ref={fileList}/>
+                <Outlet />
             </main>
         </>
     );

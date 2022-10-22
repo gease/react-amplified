@@ -1,17 +1,20 @@
 import {useRef, useState} from "react";
 import {Storage} from "aws-amplify";
 import {RadioGroupField, Radio, Button} from "@aws-amplify/ui-react";
+import {useDispatch} from "react-redux";
+import {getFiles} from "../fileSlice";
 
-function FileUpload({fetchCallback}) {
+function FileUpload() {
     const [file, setFile] = useState(null);
     const [level, setLevel] = useState('public');
     const uploadRef = useRef();
+    const dispatch = useDispatch();
     const onFormSubmit = async (event) => {
         event.preventDefault();
         await Storage.put(file.name, file, {level});
         setLevel('public');
         setFile(null);
-        fetchCallback();
+        dispatch(getFiles());
         uploadRef.current.value = null;
     }
 
