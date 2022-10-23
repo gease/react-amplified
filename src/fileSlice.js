@@ -21,6 +21,7 @@ export const fileSlice = createSlice({
         });
         builder.addCase(getFiles.rejected, (state, action) => {
             console.log(action.error);
+            return fileSlice.getInitialState();
         });
     }
 });

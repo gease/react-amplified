@@ -1,6 +1,5 @@
 import FileUpload from "./FileUpload";
 import FileList from "./FileList";
-import {useEffect, useRef} from "react";
 import {useSelector} from "react-redux";
 
 const MainPage = () => {

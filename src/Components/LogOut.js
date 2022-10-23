@@ -4,5 +4,5 @@ import {logOut} from "../userSlice";
 
 export const LogOut =  () => {
     const dispatch = useDispatch();
-    return <Button onClick={() => dispatch(logOut())}>Log Out</Button>
+    return <Button onClick={() => dispatch(logOut({}))}>Log Out</Button>
 }

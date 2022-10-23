@@ -1,17 +1,20 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {Auth} from "aws-amplify";
+import {getFiles} from "./fileSlice";
 
 export const logIn = createAsyncThunk('user/logIn',
     async ({username, password}, thunkAPI) => {
         const user = await Auth.signIn(username, password);
+
         return user.attributes;
     }
 )
 
 export const logOut = createAsyncThunk('user/logOut',
-    async () => {
+    async ({}, thunkAPI) => {
         await Auth.signOut();
+        thunkAPI.dispatch(getFiles());
         return null;
     }
 )
