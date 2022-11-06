@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import './tailwind.css';
 import App from './Components/App';
 import { Amplify } from 'aws-amplify';
 import {Provider} from "react-redux";

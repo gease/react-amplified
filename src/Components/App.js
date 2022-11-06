@@ -1,6 +1,6 @@
 import {useEffect} from "react";
 import {Amplify} from 'aws-amplify';
-import '@aws-amplify/ui-react/styles.css';
+//import '@aws-amplify/ui-react/styles.css';
 import {useSelector, useDispatch} from "react-redux";
 
 import Header from "./Header";
@@ -22,7 +22,7 @@ function App() {
     return (
         <>
             <Header user={user}/>
-            <main>
+            <main className='border-l-amber-800 border-l'>
                 <Outlet />
             </main>
         </>

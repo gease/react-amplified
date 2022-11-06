@@ -8,7 +8,7 @@ const MainPage = () => {
 
     return (
         <>
-            {user && <h1>Hello {user.name}</h1>}
+            {<h1 className="text-5xl mx-auto my-5 w-fit uppercase text font-bold font-serif">Welcome to file repository</h1>}
             {user && <FileUpload />}
             <FileList />
         </>

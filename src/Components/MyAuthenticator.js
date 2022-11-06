@@ -13,11 +13,11 @@ export default function MyAuthenticator  () {
     if (user) return <Navigate to='/' />
 
     return (
-        <form onSubmit={(e) => {e.preventDefault(); dispatch(logIn({username: name, password}));}}>
+        <form className='container grid grid-cols-3 gap-2 bg-gradient-to-b from-amber-50 to-cyan-50 p-8' onSubmit={(e) => {e.preventDefault(); dispatch(logIn({username: name, password}));}}>
             <TextField label='User Name' name='name' value={name} onChange={e => setName(e.target.value)}/>
             <PasswordField label='Password' name='password' value={password}
                            onChange={e => setPassword(e.target.value)}/>
-            <Button type='submit'>Log In</Button>
+            <Button className='btn self-center' type='submit'>Log In</Button>
         </form>
     );
 }

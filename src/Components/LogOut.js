@@ -2,7 +2,7 @@ import {Button} from "@aws-amplify/ui-react";
 import {useDispatch} from "react-redux";
 import {logOut} from "../userSlice";
 
-export const LogOut =  () => {
+export const LogOut =  ({className}) => {
     const dispatch = useDispatch();
-    return <Button onClick={() => dispatch(logOut({}))}>Log Out</Button>
+    return <button className={className} onClick={() => dispatch(logOut({}))}>Log Out</button>
 }

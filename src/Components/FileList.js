@@ -14,21 +14,27 @@ const FileList = () => {
 
 
     return (
-        <>
-            <h3>Public files</h3>
-            <ul>
-                {publicFiles.map((item) => <FileLink key={item.key} file={item} level='public' />)}
-            </ul>
-            <h3>Protected files</h3>
-            <ul>
-                {protectedFiles.map((item) => <FileLink key={item.key} file={item} level='protected'/>)}
-            </ul>
-            <h3>Private files</h3>
-            <ul>
-                {privateFiles.map((item) => <FileLink key={item.key} file={item} level='private'/>)}
-            </ul>
-            <a onClick={() => dispatch(getFiles())}> Refresh list of files</a>
-        </>
+        <section className='grid grid-cols-3 gap-2 mt-10 bg-gradient-to-b from-amber-50 to-cyan-50 p-8'>
+            <section>
+                <h3 className="text-3xl">Public files</h3>
+                <ul>
+                    {publicFiles.map((item) => <FileLink className='text-emerald-800 hover:font-bold' key={item.key} file={item} level='public' />)}
+                </ul>
+            </section>
+            <section>
+                <h3 className="text-3xl">Protected files</h3>
+                <ul>
+                    {protectedFiles.map((item) => <FileLink className='text-emerald-800 hover:font-bold' key={item.key} file={item} level='protected'/>)}
+                </ul>
+            </section>
+            <section>
+                <h3 className="text-3xl">Private files</h3>
+                <ul>
+                    {privateFiles.map((item) => <FileLink className='text-emerald-800 hover:font-bold' key={item.key} file={item} level='private'/>)}
+                </ul>
+            </section>
+            <a className='btn hover:cursor-pointer' onClick={() => dispatch(getFiles())}> Refresh list of files</a>
+        </section>
     );
 }
 
